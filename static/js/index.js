@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", (e) => setInterval(
+    () => {
+        let loader = document.getElementById("pre-loader");
+        if (!loader.classList.contains("hidden"))
+            loader.classList.add("hidden");
+    },
+    2 * 1000
+));
+
 function disable_img_interaction(element_id) {
     let image = document.getElementById(element_id);
     image.style.pointerEvents = "none";

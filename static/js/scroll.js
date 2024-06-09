@@ -13,11 +13,6 @@ function view_scroll_btn(btn) {
 }
 
 function add_view_to_elements() {
-    let about = document.getElementById("about");
-    if (inScrollView(about))
-        if (!about.classList.contains("view"))
-            about.classList.add("view");
-
     let cards = document.getElementsByClassName("card");
     for (let i = 0; i < cards.length; i++) {
         let card = cards[i];

@@ -3,6 +3,47 @@
     padding: 0;
 }
 
+#pre-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    z-index: 9999;
+}
+
+#pre-loader.hidden .spinner-border {
+    display: none;
+}
+
+#pre-loader.hidden {
+    animation: introFadeOut 2s forwards;
+}
+
+.intro {
+    text-align: center;
+}
+
+@keyframes introFadeOut {
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 :root,
 body,
 html {
@@ -109,12 +150,6 @@ div.col {
     margin-top: 1px;
     width: 100%;
     height: auto;
-
-    opacity: 0;
-}
-
-#about.view #about-banner {
-    animation: fadeIn 0.5s ease-in forwards;
 }
 
 #projects .card-header {
