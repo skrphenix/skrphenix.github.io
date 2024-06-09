@@ -17,7 +17,7 @@
 }
 
 #pre-loader.hidden .spinner-border {
-    opacity: 0;
+    visibility: hidden;
 }
 
 #pre-loader.hidden {
