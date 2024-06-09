@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", (e) => setInterval(
         if (!loader.classList.contains("hidden"))
             loader.classList.add("hidden");
     },
-    2 * 1000
+    500
 ));
 
 function disable_img_interaction(element_id) {
