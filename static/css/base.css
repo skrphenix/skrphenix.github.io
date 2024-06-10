@@ -21,7 +21,7 @@
 }
 
 #pre-loader.hidden {
-    animation: introFadeOut 2s forwards;
+    animation: introFadeOut 1s forwards;
 }
 
 .intro {
