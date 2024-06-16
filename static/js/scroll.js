@@ -1,6 +1,6 @@
 function inScrollView(elem) {
     let rect = elem.getBoundingClientRect();
-    return rect.bottom - Math.round(rect.bottom / 2) <= window.innerHeight;
+    return rect.bottom - 50 <= window.innerHeight;
 }
 
 function view_scroll_btn(btn) {
