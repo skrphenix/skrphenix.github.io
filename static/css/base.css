@@ -200,8 +200,23 @@ div.col {
     --bs-tooltip-color: white;
 }
 
-.github:hover {
+.linkedin:hover {
     color: #333333;
+    background-color: white;
+}
+
+.linkedin {
+    color: white;
+    background-color: #0A66C2;
+}
+
+.linkedin-tooltip {
+    --bs-tooltip-bg: #0A66C2;
+    --bs-tooltip-color: white;
+}
+
+.linkedin:hover {
+    color: #0A66C2;
     background-color: white;
 }
 

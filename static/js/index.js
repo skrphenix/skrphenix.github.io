@@ -34,6 +34,18 @@ function enable_tooltips() {
     );
 }
 
+function toggle_mode_initialize() {
+    let mode = localStorage.getItem("web-mode");
+    if (mode === null) {
+        localStorage.setItem("web-mode", "light");
+        return;
+    }
+
+    if (mode === "light" || mode === "dark")
+        console.log("working");
+}
+
 document.addEventListener("DOMContentLoaded", (e) => { disable_img_interaction("about-banner") });
 document.addEventListener("DOMContentLoaded", (e) => { enable_tooltips() });
 document.addEventListener("DOMContentLoaded", (e) => { get_copyright() });
+document.addEventListener("DOMContentLoaded", (e) => toggle_mode_initialize());
