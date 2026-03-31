@@ -7,9 +7,11 @@ document.addEventListener("DOMContentLoaded", (e) => setInterval(
     1000
 ))
 
-function disable_img_interaction(element_id) {
-    let image = document.getElementById(element_id);
-    image.style.pointerEvents = "none";
+function disable_images_interaction() {
+    let images = document.getElementsByTagName("img");
+    for (let i = 0; i < images.length; i++) {
+        images[i].style.pointerEvents = "none";
+    }
 }
 
 function get_copyright() {
@@ -45,7 +47,13 @@ function toggle_mode_initialize() {
         console.log("working");
 }
 
-document.addEventListener("DOMContentLoaded", (e) => { disable_img_interaction("about-banner") });
-document.addEventListener("DOMContentLoaded", (e) => { enable_tooltips() });
-document.addEventListener("DOMContentLoaded", (e) => { get_copyright() });
+document.addEventListener("DOMContentLoaded", (e) => {
+    disable_images_interaction()
+});
+document.addEventListener("DOMContentLoaded", (e) => {
+    enable_tooltips()
+});
+document.addEventListener("DOMContentLoaded", (e) => {
+    get_copyright()
+});
 document.addEventListener("DOMContentLoaded", (e) => toggle_mode_initialize());
