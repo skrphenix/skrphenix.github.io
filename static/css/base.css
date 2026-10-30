@@ -346,3 +346,20 @@ div.col {
         padding: 10px 16px;
     }
 }
+
+#contact .btn-floating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.25rem;
+    border-radius: 50rem;
+    font-weight: 500;
+}
+
+#contact .btn-floating i {
+    font-size: 1.15rem;
+}
+
+#contact .container div {
+    flex-wrap: wrap;
+}
