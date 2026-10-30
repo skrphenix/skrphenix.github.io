@@ -118,11 +118,11 @@ div.col {
     animation: fadeInBottom 0.3s ease-in forwards;
 }
 
-#experience .card.view.odd {
+#projects .card.view.odd, #experience .card.view.odd {
     animation: fadeInRight 0.3s ease-in forwards;
 }
 
-#experience .card.view.even {
+#projects .card.view.even, #experience .card.view.even {
     animation: fadeInLeft 0.3s ease-in forwards;
 }
 
@@ -153,7 +153,7 @@ div.col {
     height: auto;
 }
 
-#experience .card-header {
+#projects .card-header, #experience .card-header {
     color: #2aaadd;
     font-weight: 600;
 }
