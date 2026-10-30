@@ -346,3 +346,33 @@ div.col {
         padding: 10px 16px;
     }
 }
+
+#experience .exp-desc.collapsed {
+    position: relative;
+    max-height: 3em;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+#experience .exp-desc.collapsed::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+}
+
+#experience .exp-toggle {
+    margin-top: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #fc0086;
+    font-weight: 600;
+}
+
+#experience .exp-toggle:hover {
+    text-decoration: underline;
+}

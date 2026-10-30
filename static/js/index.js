@@ -57,3 +57,14 @@ document.addEventListener("DOMContentLoaded", (e) => {
     get_copyright()
 });
 document.addEventListener("DOMContentLoaded", (e) => toggle_mode_initialize());
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    document.querySelectorAll(".exp-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            let desc = btn.previousElementSibling;
+            let collapsed = desc.classList.toggle("collapsed");
+            btn.textContent = collapsed ? "Show more" : "Show less";
+            btn.setAttribute("aria-expanded", String(!collapsed));
+        });
+    });
+});
