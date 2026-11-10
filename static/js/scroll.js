@@ -1,51 +1,40 @@
-function inScrollView(elem) {
-    let rect = elem.getBoundingClientRect();
-    return rect.top + 100 <= window.innerHeight;
-}
+/* skrphenix.dev — scroll behaviour (reveal, scroll-spy, back-to-top) */
+(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+        /* Reveal elements as they enter the viewport */
+        const items = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in");
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+            items.forEach((el) => io.observe(el));
+        } else {
+            items.forEach((el) => el.classList.add("in"));
+        }
 
-function view_scroll_btn(btn) {
-    if (window.scrollY < 300) {
-        btn.style.display = "none";
-    }
-    else {
-        btn.style.display = "block";
-    }
-}
+        /* Highlight the nav link of the section in view */
+        const links = document.querySelectorAll(".nav-links a, .mobile-menu a");
+        const sections = [...document.querySelectorAll("main section[id]")];
+        const setActive = (id) => links.forEach((a) =>
+            a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
 
-function add_view_to_elements() {
-    let cards = document.getElementsByClassName("card");
-    for (let i = 0; i < cards.length; i++) {
-        let card = cards[i];
-        if (inScrollView(card))
-            if ((i + 1) % 2 !== 0) {
-                if (!(card.classList.contains("view") && card.classList.contains("odd")))
-                    card.classList.add("view", "odd");
-            }
-            else {
-                if (!(card.classList.contains("view") && card.classList.contains("even")))
-                    card.classList.add("view", "even");
-            }
-    }
+        if ("IntersectionObserver" in window) {
+            const spy = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => { if (entry.isIntersecting) setActive(entry.target.id); });
+            }, { rootMargin: "-45% 0px -50% 0px" });
+            sections.forEach((s) => spy.observe(s));
+        }
 
-    let social_icons = document.querySelectorAll("#contact a.btn");
-    for (let i = 0; i < social_icons.length; i++) {
-        let icon = social_icons[i];
-        if (inScrollView(icon))
-            if (!icon.classList.contains("view"))
-                icon.classList.add("view");
-    }
-};
-
-document.addEventListener("DOMContentLoaded", (e) => {
-    let btn = document.getElementById("scroll-top-btn");
-    btn.addEventListener("click", (e) => {
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-        btn.style.display = "none";
+        /* Back-to-top button */
+        const btn = document.getElementById("scroll-top-btn");
+        const onScroll = () => btn.classList.toggle("show", scrollY > 600);
+        btn.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+        addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
     });
-
-    view_scroll_btn(btn);
-    add_view_to_elements();
-
-    document.addEventListener("scroll", (e) => { view_scroll_btn(btn) });
-    document.addEventListener("scroll", (e) => { add_view_to_elements() });
-});
+})();
