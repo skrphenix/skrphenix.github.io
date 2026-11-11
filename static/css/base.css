@@ -223,7 +223,11 @@ p { text-wrap: pretty; }
     background: var(--bg-elev);
     transition: transform .2s var(--ease), border-color .2s ease;
 }
-.icon-btn:hover { transform: rotate(-12deg) scale(1.05); border-color: var(--border-strong); }
+.icon-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+@media (hover: hover) {
+    .icon-btn:hover { transform: rotate(-12deg) scale(1.05); border-color: var(--border-strong); }
+}
+.icon-btn:active { transform: scale(.92); }
 .theme-toggle .fa-sun { display: none; }
 :root[data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
 :root[data-theme="dark"] .theme-toggle .fa-moon { display: none; }

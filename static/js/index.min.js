@@ -6,45 +6,69 @@
     const store = {
         get(k) { try { return localStorage.getItem(k); } catch { return null; } },
         set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
+        remove(k) { try { localStorage.removeItem(k); } catch { /* ignore */ } },
     };
 
-    /* ---------- Theme toggle with circular View Transition ---------- */
-    // Default is the OS theme. A choice is only saved when the visitor clicks the toggle.
-    // ("theme" replaces the old "web-mode" key, which the previous site always set to "light".)
-    function setTheme(theme, persist) {
+    /* ---------- Theme: follows the OS, with a manual override ---------- */
+    // "theme" replaces the old "web-mode" key, which the previous site always set to "light".
+    const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+    const systemTheme = () => (darkQuery.matches ? "dark" : "light");
+
+    function applyTheme(theme) {
         root.dataset.theme = theme;
-        if (persist) store.set("theme", theme);
         const meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.content = theme === "dark" ? "#09090f" : "#f6f6fa";
     }
 
+    // Save a manual choice only when it differs from the OS theme. Toggling back to
+    // match the OS clears the override, so the site follows the device again.
+    function chooseTheme(theme) {
+        applyTheme(theme);
+        if (theme === systemTheme()) store.remove("theme");
+        else store.set("theme", theme);
+    }
+
+    function syncWithSystem() {
+        const saved = store.get("theme");
+        applyTheme(saved === "light" || saved === "dark" ? saved : systemTheme());
+    }
+
     function initTheme() {
-        const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.content = root.dataset.theme === "dark" ? "#09090f" : "#f6f6fa";
+        syncWithSystem();
         const btn = document.querySelector(".theme-toggle");
         if (!btn) return;
+
+        // The circular reveal is a desktop nicety. On touch devices (where mobile
+        // browsers' View Transition support is newest and least reliable) switch instantly.
+        const fancy = () => document.startViewTransition && !reduceMotion &&
+            matchMedia("(hover: hover) and (pointer: fine)").matches;
+
         btn.addEventListener("click", (e) => {
             const next = root.dataset.theme === "dark" ? "light" : "dark";
-            if (!document.startViewTransition || reduceMotion) {
-                setTheme(next, true);
-                return;
+            if (!fancy()) { chooseTheme(next); return; }
+            try {
+                const x = e.clientX || innerWidth - 40;
+                const y = e.clientY || 40;
+                const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+                const t = document.startViewTransition(() => chooseTheme(next));
+                t.ready.then(() => {
+                    root.animate(
+                        { clipPath: [`circle(0 at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+                        { duration: 550, easing: "cubic-bezier(.2,.7,.2,1)", pseudoElement: "::view-transition-new(root)" }
+                    );
+                }).catch(() => {});
+            } catch {
+                chooseTheme(next);
             }
-            const x = e.clientX || innerWidth - 40;
-            const y = e.clientY || 40;
-            const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-            const t = document.startViewTransition(() => setTheme(next, true));
-            t.ready.then(() => {
-                root.animate(
-                    { clipPath: [`circle(0 at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-                    { duration: 550, easing: "cubic-bezier(.2,.7,.2,1)", pseudoElement: "::view-transition-new(root)" }
-                );
-            });
         });
 
-        // Follow the OS setting until the visitor picks a theme themselves
-        matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-            if (!store.get("theme")) setTheme(e.matches ? "dark" : "light", false);
-        });
+        // Follow OS changes live (addListener covers older Safari)
+        if (darkQuery.addEventListener) darkQuery.addEventListener("change", syncWithSystem);
+        else if (darkQuery.addListener) darkQuery.addListener(syncWithSystem);
+        // Mobile browsers can miss that event while the tab is in the background or
+        // restored from the back/forward cache, so re-check when the page comes back.
+        document.addEventListener("visibilitychange", () => { if (!document.hidden) syncWithSystem(); });
+        addEventListener("pageshow", syncWithSystem);
     }
 
     /* ---------- Typing role rotator ---------- */
