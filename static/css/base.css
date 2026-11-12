@@ -724,7 +724,78 @@ p { text-wrap: pretty; }
 /* Whole card is clickable via the stretched link */
 .proj .stretched::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
 
-@media (max-width: 720px) { .proj-grid { grid-template-columns: 1fr; } }
+/* Featured project spans the full row */
+.proj-featured {
+    grid-column: 1 / -1;
+    grid-template-rows: none;
+    gap: 18px;
+    padding: clamp(24px, 3.5vw, 36px);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.proj-featured .proj-head h3 { font-size: clamp(1.3rem, 2.6vw, 1.6rem); }
+.proj-featured > p { font-size: 1rem; max-width: 75ch; }
+.badge-muted {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    background: var(--chip-bg);
+    color: var(--text-muted);
+}
+.proj-stats {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--border);
+    overflow: hidden;
+}
+.proj-stats li {
+    padding: 12px 16px;
+    background: var(--bg-elev);
+    font-size: .82rem;
+    color: var(--text-muted);
+}
+.proj-stats strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: var(--text);
+}
+.proj-stats strong.grad-text { color: transparent; }
+.proj-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 28px;
+}
+.proj-features li {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 12px;
+    align-items: start;
+    font-size: .92rem;
+    color: var(--text-muted);
+}
+.proj-features i {
+    display: grid;
+    place-items: center;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    font-size: .9rem;
+}
+.proj-features b { color: var(--text); font-weight: 600; }
+
+@media (max-width: 720px) {
+    .proj-grid { grid-template-columns: 1fr; }
+    .proj-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .proj-stats li:first-child { grid-column: 1 / -1; }
+    .proj-features { grid-template-columns: 1fr; }
+}
 
 /* =========================================================
    Certifications

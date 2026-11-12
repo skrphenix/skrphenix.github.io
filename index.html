@@ -68,11 +68,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="static/fontawesome/css/all.min.css"/>
-    <link rel="stylesheet" href="static/css/base.min.css?v=6"/>
-    <link rel="stylesheet" href="static/css/animations.min.css?v=6"/>
+    <link rel="stylesheet" href="static/css/base.min.css?v=9"/>
+    <link rel="stylesheet" href="static/css/animations.min.css?v=9"/>
 
-    <script src="static/js/index.min.js?v=6" defer></script>
-    <script src="static/js/scroll.min.js?v=6" defer></script>
+    <script src="static/js/index.min.js?v=9" defer></script>
+    <script src="static/js/scroll.min.js?v=9" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -328,10 +328,40 @@
     <section class="section" id="projects">
         <div class="wrap">
             <div class="section-head reveal">
-                <span class="kicker">05 — Open source</span>
+                <span class="kicker">05 — Builds</span>
                 <h2>Projects</h2>
             </div>
             <div class="proj-grid">
+                <article class="card spot proj proj-featured reveal">
+                    <div class="proj-head">
+                        <div class="proj-title">
+                            <h3>Baboo Bot</h3>
+                            <span class="badge">featured</span>
+                            <span class="badge badge-muted"><i class="fa-solid fa-lock fa-xs"></i> private repo</span>
+                        </div>
+                    </div>
+                    <p>
+                        An all-in-one Discord bot built for the Boba Gang community: an in-server economy, a 243-item shop,
+                        an XP leveling system, games, social profiles and auto-moderation. Built as a team of three, where I
+                        was the lead contributor, running 24/7 on DigitalOcean with a cloud-hosted MySQL database and serving 20,000+ active users.
+                    </p>
+                    <ul class="proj-stats">
+                        <li><strong class="grad-text">20k+</strong> active users</li>
+                        <li><strong>75+</strong> commands</li>
+                        <li><strong>13</strong> feature modules</li>
+                        <li><strong>8k+</strong> lines of Python</li>
+                        <li><strong>469</strong> commits</li>
+                    </ul>
+                    <ul class="proj-features">
+                        <li><i class="fa-solid fa-coins"></i><span><b>Economy &amp; shop:</b> wallet and bank, daily/weekly rewards, transfers capped by level, buy/sell/trade, and timed memberships that expire automatically.</span></li>
+                        <li><i class="fa-solid fa-image"></i><span><b>Generated profile &amp; level cards:</b> rendered on the fly with Pillow using the user's avatar, chosen background, colour and icons.</span></li>
+                        <li><i class="fa-solid fa-dice"></i><span><b>Games:</b> blackjack and Kla Klouk with interactive buttons, plus slots and coin flip.</span></li>
+                        <li><i class="fa-solid fa-shield-halved"></i><span><b>Auto-moderation:</b> spam, link, keyword and mention-limit rules with configurable actions and logs, plus per-channel and per-server command toggles.</span></li>
+                        <li><i class="fa-solid fa-database"></i><span><b>Cloud MySQL backend:</b> a cloud-hosted database managed through phpMyAdmin, reached through a pooled connection layer with a small schema builder. Cooldowns are stored there so they survive restarts.</span></li>
+                        <li><i class="fa-solid fa-server"></i><span><b>DigitalOcean deployment:</b> runs on a DigitalOcean server as two systemd services, the bot plus a background worker that removes expired membership roles every 6 hours.</span></li>
+                    </ul>
+                    <ul class="chips"><li class="chip">Python</li><li class="chip">py-cord</li><li class="chip">MySQL</li><li class="chip">Pillow</li><li class="chip">phpMyAdmin</li><li class="chip">asyncio</li><li class="chip">systemd</li><li class="chip">DigitalOcean</li><li class="chip">ETL</li><li class="chip">Performance Tuning</li><li class="chip">Git</li></ul>
+                </article>
                 <article class="card spot lift proj reveal">
                     <div class="proj-head">
                         <div class="proj-title"><h3><a class="stretched" href="https://github.com/Modern-Realm/economy-bot-discord.py" target="_blank" rel="noopener">Economy bot discord.py</a></h3></div>
